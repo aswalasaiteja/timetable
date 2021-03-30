@@ -1,0 +1,50 @@
+{% extends 'schedule/base.login.html' %}
+
+{% block content %}
+
+        <div class = col-md-6>
+            <h1 class = 'text-light display-4 mt-150' style = 'font-size:80px'>Amazing Rooms with a lot of options to choose from.</h1>
+        </div>
+
+<!--
+<div class = col-md-4>
+
+            <div class = "card mt-150">
+                <div class = 'card-body'>
+                    <form action = "{% url 'home' %}">
+                        <label>Email</label><br>
+                        <input type="email" class = "form-control"><br>
+                        <label>Password</label><br>
+                        <input type="password" class = "form-control"><br><br>
+                        <input type="submit" class = "btn btn-primary btn-block-btn-lg"  value = "Login" >
+                 </form>
+                    <p class = 'mt-2'>Not a Member? <a href="/register">Create Account</a> </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        -->
+<div class = col-md-6>
+
+            <div class = "card mt-150 shadow">
+                  <div class = "alert alert-success bg-nav">
+            <h2 class = 'text-light' style = 'font-size:25px'>Login</h2>
+
+                </div>
+                <div class = 'card-body'>
+                    <form action = "{% url 'login' %}" method = 'POST'>
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="submit" class = "btn btn-primary btn-block-btn-lg"  value = "login" >
+                 </form>
+                    <p class = 'mt-2'>Not a Member? <a href="/register">Create Account</a> </p>
+
+                </div>
+
+            </div>
+
+        </div>
+{% endblock %}

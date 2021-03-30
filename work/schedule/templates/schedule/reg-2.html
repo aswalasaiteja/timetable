@@ -1,0 +1,36 @@
+{% extends 'schedule/base.login.html' %}
+
+{% block content %}
+        <div class = col-md-4>
+
+            <div class = "card mt-150">
+                <div class = 'card-body'>
+                    <form action = '/register' method = 'post'>
+
+                        <label>First Name</label><br>
+                        <input type="text" name = 'first_name' class = "form-control"><br>
+                        <label>Last Name</label><br>
+                        <input type="text" name = 'last_name' class = "form-control"><br>
+
+                         <label>User Name</label><br>
+                        <input type="text" name = 'username' class = "form-control"><br>
+
+                        <label>Email</label><br>
+                        <input type="email" name = 'email' class = "form-control"><br>
+
+                        <label>Password</label><br>
+                        <input type="password" name = 'password1' class = "form-control"><br><br>
+                        <label>Confirm Password</label><br>
+                        <input type="password" name = 'password2' class = "form-control"><br><br>
+                        <input type="submit" class = "btn btn-primary btn-block-btn-lg"  value = "Create Account">
+                 </form>
+                    <p class = 'mt-2'>Already a Member? <a href="{% url 'login' %}">Login Here</a> </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+{% endblock %}
+

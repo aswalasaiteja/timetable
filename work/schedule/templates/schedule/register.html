@@ -1,0 +1,26 @@
+{% extends 'schedule/base.login.html' %}
+
+{% block content %}
+        <div class = "col-md-6 mx-auto">
+
+            <div class = "card mt-100 shadow p-0">
+                <div class = "alert alert-success bg-nav">
+            <h2 class = 'text-light' style = 'font-size:25px'>Register</h2>
+
+                </div>
+                <div class = 'card-body'>
+                    <form action = "{% url 'register' %}" method = 'post'>
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" class = "btn btn-primary btn-block-btn-lg"  value = "Create Account">
+                 </form>
+                    <p class = 'mt-2'>Already a Member? <a href="{% url 'login' %}">Login Here</a> </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+{% endblock %}
+
