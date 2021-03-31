@@ -15,6 +15,9 @@
     background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.mt-100{
+margin-top : 100px;
+}
 
 
 .mt-150{
@@ -40,19 +43,28 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+        {% if request.user.is_authenticated %}
+
         <li class="nav-item">
           <a class="nav-link active text-light" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
+          <span>&nbsp</span>
 
-
-
-
-        <li class="nav-item">
-            <a href="/">
-                 <button class="btn btn-outline-success" type="submit">Logout</button>
+                  <li class="nav-item">
+            <a href="{% url 'logout' %}">
+                 <button class="btn btn-outline-success" type="submit"><strong>Logout</strong></button>
             </a>
+ </li>
+          {% else %}
+        <li class="nav-item">
+            <a href="{% url 'login' %}">
+                 <button class="btn btn-outline-success" type="submit"><strong>Login</strong></button>
+            </a>
+ </li>
+           {% endif %}
 
-        </li>
+
 
       </ul>
 

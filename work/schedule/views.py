@@ -1,15 +1,24 @@
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-from django.contrib.auth import  authenticate,login as loginUser
+from django.contrib.auth import  authenticate,login as loginUser, logout
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .forms import ClassworkForm
+from .models import Classwork
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url='login')
 def home(request):
-    form  = ClassworkForm()
-    context = {
-        'form' : form
-    }
-    return render(request, 'schedule/home.html', context=context)
+    if request.user.is_authenticated:
+        user = request.user
+        form  = ClassworkForm()
+        schedules = Classwork.objects.filter(user = user )
+        context = {
+            'form' : form,
+            'schedules' : schedules,
+
+        }
+        return render(request, 'schedule/home.html', context=context)
 
 
 
@@ -41,6 +50,12 @@ def login(request):
             }
             return render(request, 'schedule/login.html', context=context)
 
+@login_required(login_url='login')
+def signout(request):
+    logout(request)
+    return redirect('login')
+
+
 
 def register(request):
     if request.method == 'GET':
@@ -62,15 +77,28 @@ def register(request):
         else:
             return render(request, 'schedule/register.html', context=context)
 
+@login_required(login_url='login')
+def add_schedule(request):
+    if request.user.is_authenticated:
+        user = request.user
+        print(user)
+        form = ClassworkForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            schedule = form.save(commit=False)
+            schedule.user = user
+            schedule.save()
+            print(schedule)
+            return redirect('home')
+        else:
+            return render(request, 'home.html', context={'form':form})
 
-def add(request):
-    form = ClassworkForm(request.POST)
-    if form.is_valid():
-        print(form.cleaned_data)
-        return redirect('home')
-    else:
-        return render(request, 'home.html', context={'form':form})
 
+def delete_schedule(request, id):
+    Classwork.objects.get(pk = id).delete()
+    return redirect('home')
+
+    return HttpResponse(id)
 def credentials(request):
     return render(request, 'schedule/credentials.html')
 
